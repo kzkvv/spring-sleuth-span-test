@@ -1,16 +1,15 @@
 spring:
   kafka:
     consumer:
-      bootstrap-servers: kafka-agg:9092 #when using kubefwd
+      bootstrap-servers: ${KAFKA_SERVICE:kafka-agg:9092}
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       trusted-packages: java.lang
     producer:
-      bootstrap-servers: kafka-agg:9092
+      bootstrap-servers: ${KAFKA_SERVICE:kafka-agg:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-#      interceptor-classes: me.kzkvv.springsleuthspantest.SpringKafkaTracer
 
   sleuth:
     kafka:
@@ -22,7 +21,7 @@ spring:
     enabled: false
 
 server:
-  port: 5002
+  port: ${SERVER_PORT:5002}
 
 logging:
   level:
