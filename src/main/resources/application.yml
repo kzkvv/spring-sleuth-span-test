@@ -1,24 +1,23 @@
 spring:
   kafka:
     consumer:
-      bootstrap-servers: ${KAFKA_SERVICE:kafka-agg:9092}
+      #      bootstrap-servers: localhost:9093
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       trusted-packages: java.lang
     producer:
-      bootstrap-servers: ${KAFKA_SERVICE:kafka-agg:9092}
+      #      bootstrap-servers: localhost:9093
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
   sleuth:
     kafka:
-      enabled: false
+      enabled: true
     propagation:
       type: B3
-    opentracing.enabled: true
-  zipkin:
-    enabled: false
+    sampler:
+      probability: 1.0
 
 server:
   port: ${SERVER_PORT:5002}
